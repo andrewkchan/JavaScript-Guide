@@ -164,7 +164,7 @@ We can define a function using a _function declaration_. The following function 
 
 ```javascript
 function makeSomeNoise(yourName) {
-return "Make some noise for " + yourName + "!!";
+  return "Make some noise for " + yourName + "!!";
 }
 // let's call it now
 makeSomeNoise("Sinho Chewi"); // --> "Make some noise for Sinho Chewi!!"
@@ -174,7 +174,7 @@ We can also use a _function expression_, which is just like a normal expression 
 
 ```javascript
 var makeSomeNoise = function(yourName) {
-return "Make some noise for " + yourName + "!!";
+  return "Make some noise for " + yourName + "!!";
 }
 makeSomeNoise("Anant Sahai"); // --> "Make some noise for Anant Sahai!!"
 ```
@@ -185,7 +185,7 @@ Going back to the philosophy of _avoiding crashing at all costs_, we observe tha
 
 ```javascript
 function iWantTwoArguments(a, b) {
-console.log(a, b);
+  console.log(a, b);
 }
 // both of the below would throw exceptions in Python!
 // but they execute without complaining.
@@ -197,10 +197,10 @@ There are no errors! But then how do we know if a function was called as intende
 
 ```javascript
 function iWantTwoArguments(a, b) {
-if (typeof a === "undefined" || typeof b === "undefined") {
-return console.log("Missing an argument!");
-}
-console.log(a, b);
+  if (typeof a === "undefined" || typeof b === "undefined") {
+    return console.log("Missing an argument!");
+  }
+  console.log(a, b);
 }
 ```
 
@@ -208,10 +208,10 @@ We can also check the [**`arguments`**](https://developer.mozilla.org/en-US/docs
 
 ```javascript
 function iWantTwoArguments(a, b) {
-if (arguments.length !== 2) {
-return console.log("Did not receive exactly 2 arguments");
-}
-console.log(a, b);
+  if (arguments.length !== 2) {
+    return console.log("Did not receive exactly 2 arguments");
+  }
+  console.log(a, b);
 }
 ```
 
@@ -219,7 +219,7 @@ Finally, we can combine the arguments object with [**rest parameters**](https://
 
 ```javascript
 function printMyArguments(...args) {
-console.log(args); // prints my arguments in the form of an array.
+  console.log(args); // prints my arguments in the form of an array.
 }
 ```
 
@@ -231,9 +231,9 @@ Just like in Python, functions can be passed around as arguments, returned from 
 
 ```javascript
 function makeAdder(increment) {
-return function(inputNumber) {
-return inputNumber + increment;
-}
+  return function(inputNumber) {
+    return inputNumber + increment;
+  }
 }
 var incrementByOne = makeAdder(1);
 var incrementByTwo = makeAdder(2);
@@ -256,11 +256,11 @@ JavaScript's syntax for if-else statements take the following form:
 
 ```javascript
 if (CONDITION) {
-// STATEMENTS
+  // STATEMENTS
 } else if {
-// ...
+  // ...
 } else {
-// ...
+  // ...
 }
 ```
 
@@ -268,13 +268,13 @@ Conditional expressions are surrounded by parentheses and the statements to be e
 
 ```javascript
 if (currentClass === "61A") {
-console.log("ez pz lemon sqz");
+  console.log("ez pz lemon sqz");
 } else if (currentClass === "61B") {
-console.log("okey dokey lowkey nopey");
+  console.log("okey dokey lowkey nopey");
 } else if (currentClass === "70") {
-console.log("difficult difficult lemon difficult");
+  console.log("difficult difficult lemon difficult");
 } else {
-console.log("???!!???!!???");
+  console.log("???!!???!!???");
 }
 ```
 
@@ -282,22 +282,22 @@ Observe that the above code only really cares about the value of a single expres
 
 ```javascript
 switch (currentClass) {
-case "61A": {
-console.log("ez pz lemon sqz");
-break;
-}
-case "61B": {
-console.log("okey dokey lowkey nopey");
-break;
-}
-case "70": {
-console.log("difficult difficult lemon difficult");
-break;
-}
-default: {
-console.log("???!!???!!???");
-break;
-}
+  case "61A": {
+    console.log("ez pz lemon sqz");
+    break;
+  }
+  case "61B": {
+    console.log("okey dokey lowkey nopey");
+    break;
+  }
+  case "70": {
+    console.log("difficult difficult lemon difficult");
+    break;
+  }
+  default: {
+    console.log("???!!???!!???");
+    break;
+  }
 }
 ```
 
@@ -310,9 +310,9 @@ var difficulty = (currentClass === "61A") ? "ez pz lemon sqz" : "super difficult
 
 // the above is equivalent to the following if-else statements::
 if (currentClass === "61A") {
-difficulty = "ez pz lemon sqz";
+  difficulty = "ez pz lemon sqz";
 } else {
-difficulty = "super difficult";
+  difficulty = "super difficult";
 }
 ```
 
@@ -323,8 +323,8 @@ difficulty = "super difficult";
 ```javascript
 var i = 0;
 while (i < 10) {
-console.log("Currently at the " + i + "th iteration of the loop");
-i++;
+  console.log("Currently at the " + i + "th iteration of the loop");
+  i++;
 }
 ```
 
@@ -338,7 +338,7 @@ We can put all of this code into its own block because all we really care about 
 
 ```javascript
 for (var i = 0; i < 10; i++) {
-console.log("Currently at the " + i + "th iteration of the loop");
+  console.log("Currently at the " + i + "th iteration of the loop");
 }
 ```
 
@@ -346,10 +346,10 @@ Sometimes when we're in the middle of an iteration of a loop, something happens 
 
 ```javascript
 for (var i = 0; i < 10; i++) {
-console.log("Currently at the " + i + "th iteration of the loop");
-if (i === 7) {
-break; // this stops the loop at the end of the 7th iteration instead of the 10th
-}
+  console.log("Currently at the " + i + "th iteration of the loop");
+  if (i === 7) {
+    break; // this stops the loop at the end of the 7th iteration instead of the 10th
+  }
 }
 ```
 
@@ -489,13 +489,13 @@ Objects in JS are defined just like dictionaries in Python, using curly braces a
 
 ```javascript
 var mustang = {
-make: "Ford",
-model: "Mustang",
-year: 2009,
-isUsed: true,
-makeNoise: function() {
-return "vroom vroom";
-},
+  make: "Ford",
+  model: "Mustang",
+  year: 2009,
+  isUsed: true,
+  makeNoise: function() {
+    return "vroom vroom";
+  },
 };
 ```
 
@@ -503,14 +503,14 @@ We can further abstract this away by defining a function to create objects for u
 
 ```javascript
 function createCar(make, model, year) {
-return {
-make: make,
-model: model,
-isUsed: year !== 2018,
-makeNoise: function() {
-return "vroom vroom";
-},
-};
+  return {
+    make: make,
+    model: model,
+    isUsed: year !== 2018,
+    makeNoise: function() {
+      return "vroom vroom";
+    },
+  };
 }
 
 // call it to make a mustang
@@ -569,11 +569,11 @@ The `this` pointer in JavaScript is a special pointer that we can use inside fun
 
 ```javascript
 var car = {
-//...
-topSpeed: 130,
-canDrive: function(speed) {
-return speed > this.topSpeed;
-},
+  //...
+  topSpeed: 130,
+  canDrive: function(speed) {
+    return speed > this.topSpeed;
+  },
 };
 car.canDrive(150); // --> will return false
 car.topSpeed = 200;
@@ -621,11 +621,11 @@ Consider the following code, in which we define a hero character and a function 
 
 ```javascript
 var hero = {
-name: "Gandalf",
-health: 500,
-takeDamage: function(dmg) {
-this.health = Math.max(this.health - dmg, 0);
-},
+  name: "Gandalf",
+  health: 500,
+  takeDamage: function(dmg) {
+    this.health = Math.max(this.health - dmg, 0);
+  },
 };
 
 var attacks = [100, 150, 250];
@@ -637,7 +637,7 @@ The above code is intended to make `hero` take a total of 100 + 150 + 250 = 500 
 
 ```javascript
 attacks.forEach(function(dmg) {
-hero.takeDamage(dmg);
+  hero.takeDamage(dmg);
 });
 ```
 
@@ -706,14 +706,14 @@ It is also specified using an opening tag and a closing tag:
 
 ```html
 <div>
-<p>
-Here is one paragraph inside of a div element. The only time I use paragraph elements is
-when I want to separate text nicely. However that happens a lot when I'm writing text-only websites.
-</p>
-<p>
-Here is another paragraph still inside of the same div element. All browsers will by default separate
-paragraph elements with a little bit of vertical space so they look nice.
-</p>
+  <p>
+  Here is one paragraph inside of a div element. The only time I use paragraph elements is
+  when I want to separate text nicely. However that happens a lot when I'm writing text-only websites.
+  </p>
+  <p>
+  Here is another paragraph still inside of the same div element. All browsers will by default separate
+  paragraph elements with a little bit of vertical space so they look nice.
+  </p>
 </div>
 ```
 
@@ -727,28 +727,28 @@ The full list is therefore specified by an opening tag, a collection of list ele
 
 ```html
 <ul>
-<li>Here is some text inside of the first bullet point.</li>
-<li>
-<p>
-Here is a PARAGRAPH of text inside of the second bullet point.
-</p>
-<p>
-Another paragraph also in the second bullet point!! In fact, since list elements are
-just enumerable block-level elements we can add whatever we want inside of them.
-</p>
-</li>
-<li>
-Here is the third bullet point. Nothing special here.
-</li>
+  <li>Here is some text inside of the first bullet point.</li>
+  <li>
+    <p>
+    Here is a PARAGRAPH of text inside of the second bullet point.
+    </p>
+    <p>
+    Another paragraph also in the second bullet point!! In fact, since list elements are
+    just enumerable block-level elements we can add whatever we want inside of them.
+    </p>
+  </li>
+  <li>
+    Here is the third bullet point. Nothing special here.
+  </li>
 </ul>
 
 <p>My top 5 places to eat in Berkeley:</p>
 <ol>
-<li>Thai Noodle</li>
-<li>El Burro Picante</li>
-<li>Thai Basil</li>
-<li>Toss</li>
-<li>Shihlin</li>
+  <li>Thai Noodle</li>
+  <li>El Burro Picante</li>
+  <li>Thai Basil</li>
+  <li>Toss</li>
+  <li>Shihlin</li>
 </ol>
 ```
 
@@ -760,14 +760,14 @@ The `<h1>`, `<h2>`, `<h3>`, `<h4>`, `<h5>`, and `<h6>` tags are **section headin
 <h1>My very important announcement</h1>
 
 <p>
-I have decided that I have had enough of my roommate's hoverboard. He keeps hoverboarding around everywhere. It's really annoying
-and I wish he would stop.
+  I have decided that I have had enough of my roommate's hoverboard. He keeps hoverboarding around everywhere. It's really annoying
+  and I wish he would stop.
 </p>
 
 <h2>My less important addendum</h2>
 
 <p>
-Also, he hasn't watered the plant in like a month and the plant's leaves are starting to turn brown and fall off. This is not quite as important but I really wish he would start watering the plant like he said he would.
+  Also, he hasn't watered the plant in like a month and the plant's leaves are starting to turn brown and fall off. This is not quite as important but I really wish he would start watering the plant like he said he would.
 </p>
 ```
 
@@ -783,7 +783,7 @@ The `<span>` tag is a generic inline container for text content. Like the `<div>
 
 ```html
 <p>
-Here is some text with a <span>text enclosed in a span element</span> in the middle of the sentence.
+  Here is some text with a <span>text enclosed in a span element</span> in the middle of the sentence.
 </p>
 ```
 
@@ -801,9 +801,9 @@ Additionally, the anchor tag is an inline element, so it can be used within a pa
 
 ```html
 <p>
-This is a long paragraph of text. My favorite soda is Sprite.
-Did you know that Sprite is manufactured by <a href="http://www.coca-cola.com/global/">Coca-Cola</a>?
-Wow. Coca-Cola makes a ton of great sodas. Too bad the original Coca-Cola soda tastes like garbage.
+  This is a long paragraph of text. My favorite soda is Sprite.
+  Did you know that Sprite is manufactured by <a href="http://www.coca-cola.com/global/">Coca-Cola</a>?
+  Wow. Coca-Cola makes a ton of great sodas. Too bad the original Coca-Cola soda tastes like garbage.
 </p>
 ```
 
@@ -811,9 +811,9 @@ Moreover, although it is an inline-tag, we can enclose any type of element using
 
 ```html
 <a href="berkeley.edu">
-<div>
-This entire section is now a link to Berkeley's website. Wow. It's like a button.
-</div>
+  <div>
+  This entire section is now a link to Berkeley's website. Wow. It's like a button.
+  </div>
 </a>
 ```
 
@@ -845,22 +845,22 @@ Consider the following HTML page:
 
 ```html
 <div>
-<div id="home">
-<a href="/">Home</a>
-</div>
-<div id="about">
-<a href="/about">About</a>
-</div>
-<div id="projects">
-<a href="/projects">Projects</a>
-</div>
+  <div id="home">
+    <a href="/">Home</a>
+  </div>
+  <div id="about">
+    <a href="/about">About</a>
+  </div>
+  <div id="projects">
+    <a href="/projects">Projects</a>
+  </div>
 </div>
 <div>
-<h1> Welcome to my Website!</h1>
-<p>
-This is my website. My name is Dingleberry Dingus. I know, it's a horrible name.
-I was bullied a lot as a child. I made this website to talk about how I went through life with that name.
-</p>
+  <h1> Welcome to my Website!</h1>
+  <p>
+    This is my website. My name is Dingleberry Dingus. I know, it's a horrible name.
+    I was bullied a lot as a child. I made this website to talk about how I went through life with that name.
+  </p>
 </div>
 ```
 
@@ -872,14 +872,14 @@ Where is the root of this tree? It's actually a hidden node with special tag `<h
 
 ```html
 <html>
-<body>
-<div>
-<!---->
-</div>
-<div>
-<!---->
-</div>
-</body>
+  <body>
+    <div>
+    <!---->
+    </div>
+    <div>
+    <!---->
+    </div>
+  </body>
 </html>
 ```
 
@@ -915,15 +915,15 @@ Consider the following web page:
 
 ```html
 <div>
-<div id="home">
-<a href="/">Home</a>
-</div>
-<div id="about">
-<a href="/about">About</a>
-</div>
-<div id="projects">
-<a href="/projects">Projects</a>
-</div>
+  <div id="home">
+    <a href="/">Home</a>
+  </div>
+  <div id="about">
+    <a href="/about">About</a>
+  </div>
+  <div id="projects">
+    <a href="/projects">Projects</a>
+  </div>
 </div>
 ```
 
@@ -944,15 +944,15 @@ For instance, we can access all anchor tags in the following web page:
 
 ```html
 <div>
-<div id="home">
-<a href="/">Home</a>
-</div>
-<div id="about">
-<a href="/about">About</a>
-</div>
-<div id="projects">
-<a href="/projects">Projects</a>
-</div>
+  <div id="home">
+    <a href="/">Home</a>
+  </div>
+  <div id="about">
+    <a href="/about">About</a>
+  </div>
+  <div id="projects">
+    <a href="/projects">Projects</a>
+  </div>
 </div>
 ```
 
@@ -981,15 +981,15 @@ There is another type of identifier called **class** that we can use to group HT
 
 ```html
 <div>
-<div id="home" class="button">
-<a href="/" class="button-link">Home</a>
-</div>
-<div id="about" class="button">
-<a href="/about" class="button-link">About</a>
-</div>
-<div id="projects" class="button">
-<a href="/projects" class="button-link">Projects</a>
-</div>
+  <div id="home" class="button">
+    <a href="/" class="button-link">Home</a>
+  </div>
+  <div id="about" class="button">
+    <a href="/about" class="button-link">About</a>
+  </div>
+  <div id="projects" class="button">
+    <a href="/projects" class="button-link">Projects</a>
+  </div>
 </div>
 ```
 
@@ -997,7 +997,7 @@ In fact, we can associate any element with multiple classes by separating each c
 
 ```html
 <div class="button centered jumbo">
-This div is associated with classes "button", "centered", "jumbo".
+  This div is associated with classes "button", "centered", "jumbo".
 </div>
 ```
 
@@ -1166,11 +1166,11 @@ By default, events will _bubble up_ (propagate up) the DOM tree when they are fi
 
 ```html
 <div id="grandparent">
-<div id="parent">
-<div id="button">
-Click me!
-</div>
-</div>
+  <div id="parent">
+    <div id="button">
+    Click me!
+    </div>
+  </div>
 </div>
 ```
 
@@ -1179,10 +1179,10 @@ Sometimes this is useful (for example, if we want a container to do something ba
 HTML:
 ```html
 <div id="danger">
-<div id="goal">
-GOAL ZONE CLICK ME
-</div>
-DANGER ZONE DON'T CLICK ME
+  <div id="goal">
+    GOAL ZONE CLICK ME
+  </div>
+  DANGER ZONE DON'T CLICK ME
 </div>
 ```
 JavaScript:
@@ -1196,8 +1196,8 @@ Say the user loses if they click in the danger zone and they win if they click i
 
 ```javascript
 document.getElementById("goal").addEventListener("click", function(e) {
-alert("you win!");
-e.stopPropagation();
+  alert("you win!");
+  e.stopPropagation();
 });
 document.getElementById("danger").addEventListener("click", function(e) { alert("you lose!"); });
 ```
@@ -1214,8 +1214,8 @@ HTML:
 JavaScript:
 ```javascript
 document.getElementById("namebox").addEventListener("change", function(e) {
-var responseBox = document.getElementById("response");
-responseBox.innerHTML = "You just typed " + e.target.value;
+  var responseBox = document.getElementById("response");
+  responseBox.innerHTML = "You just typed " + e.target.value;
 });
 ```
 
@@ -1231,7 +1231,7 @@ Just as we can add event listeners, we can also remove event listeners using [`E
 
 ```javascript
 var handleBodyClick = function(e) {
-console.log("document body was clicked!");
+  console.log("document body was clicked!");
 }
 document.body.addEventListener("click", handleBodyClick);
 // we decided it was too annoying so now let's remove it.

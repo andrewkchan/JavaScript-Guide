@@ -1,5 +1,22 @@
 This repository is a mirror of the full text at GitBook, which you can read [here](https://theandrewchan.gitbooks.io/javascript-crash-course/content/).
 
+# Table of Contents
+
+### Part I: The JavaScript Language
+
+* [Introduction](https://github.com/theandrewchan/JavaScript-Guide#introduction)
+1. [Primitives, Expressions](https://github.com/theandrewchan/JavaScript-Guide#1-primitives-expressions)
+2. [Functions](https://github.com/theandrewchan/JavaScript-Guide#2-functions)
+3. [Arrays](https://github.com/theandrewchan/JavaScript-Guide#3-arrays)
+4. [Objects](https://github.com/theandrewchan/JavaScript-Guide#4-objects)
+
+### Part II: Frontend Web Development
+
+* [Overview](https://github.com/theandrewchan/JavaScript-Guide#part-ii---frontend-web-dev-overview)
+5. [Basic HTML Review](https://github.com/theandrewchan/JavaScript-Guide#5-review-of-basic-html-tags)
+6. [The Document Object Model](https://github.com/theandrewchan/JavaScript-Guide#6-the-document-object-model-dom)
+7. [DOM Events and Interactivity](https://github.com/theandrewchan/JavaScript-Guide#7-dom-events-and-interactivity)
+
 # JavaScript: Crash Course Part I
 
 ## Introduction

@@ -1371,7 +1371,7 @@ Now, the HTML form used to decide everything for us, including:
 * What data to send to the server, since forms automatically grab the values of all input elements in between the form tags.
 * How to send that data, as forms always send data as an object with keys corresponding to input element name attributes.
 
-We're no longer using forms (Notice the lack of `<form>` tags! Luckily, we can still use `<input>` elements outside of forms), so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the HTTP method being used, and set the request body to an object with the key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility.
+We're no longer using forms (Notice the lack of `<form>` tags! Luckily, we can still use `<input>` elements outside of forms), so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the HTTP method being used, and set the request body to an object with the key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility. And of course, the best part is that our page no longer automatically reloads and can do these requests asynchronously.
 
 ##### 8.2.1.3 Catching Fetch Errors
 
@@ -1391,3 +1391,30 @@ fetch("https://api.wunderground.com/api/MY_API_KEY/conditions/q/CA/San_Francisco
 ```
 
 Thus using fetch, we can asynchronously do everything that an HTML form can do and more, including send input data and files. [Read the Fetch documentation for more.](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
+
+### 8.3 Real-Time Communication
+
+Modern web applications now not only support client-server communications without reloading the page, but also near real-time communications - consider the example of a chat app like Slack or Facebook Messenger, where users can send and receive messages with little to no delay. These web apps use asynchronous JavaScript to implement real-time communication as well.
+
+#### 8.3.1 Long Polling
+
+The traditional way to implement real-time communications or push notifications in the web browser is through a technique known as [**long polling**](https://en.wikipedia.org/wiki/Push_technology#Long_polling). In long polling, the client sends a pending HTTP request to some "pull" endpoint on the server. If the server has no new information for the client when the poll request is received, instead of sending an empty response, the server _holds the request open_ and does not issue an HTTP response until response information becomes available. On receiving the server's response, the client immediately issues another pending HTTP request and continues the cycle forever. In code:
+
+```javascript
+function pollNewMessages() {
+  fetch("example.com/pull").then(function(res) {
+    // handle new messages...
+    pollNewMessages();
+  });
+}
+
+pollNewMessages();
+```
+
+[Facebook Messenger is known to use this technique.](https://www.facebook.com/note.php?note_id=14218138919) The main advantage of long polling is that it is supported by all browsers, unlike more advanced technologies and protocols.
+
+#### 8.3.2 Websockets
+
+[**Websockets**](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) is a more recent technology that implements real-time communication in a more efficient, bi-directional protocol separate from HTTP. Under the hood, Websockets also uses polling, but it is free to send smaller ping and pong packets as it does not need to include extraneous information required with HTTP requests. With Websockets, both the server and client must support the Websockets protocol; luckily, support across modern browsers is good.
+
+[Read more about using Websockets in the browser here.](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications) Additionally, you can read more about the advantages and disadvantages of long polling vs. Websockets [here](https://blog.baasil.io/why-you-shouldnt-use-long-polling-fallbacks-for-websockets-c1fff32a064a).

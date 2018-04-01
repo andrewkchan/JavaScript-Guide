@@ -16,6 +16,7 @@ This repository is a mirror of the full text at GitBook, which you can read [her
 5. [Basic HTML Review](https://github.com/theandrewchan/JavaScript-Guide#5-review-of-basic-html-tags)
 6. [The Document Object Model](https://github.com/theandrewchan/JavaScript-Guide#6-the-document-object-model-dom)
 7. [DOM Events and Interactivity](https://github.com/theandrewchan/JavaScript-Guide#7-dom-events-and-interactivity)
+8. [Communicating with a Backend](https://github.com/theandrewchan/JavaScript-Guide#8-communicating-with-a-backend)
 
 # JavaScript: Crash Course Part I
 

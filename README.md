@@ -1371,7 +1371,7 @@ Now, the HTML form used to decide everything for us, including:
 * What data to send to the server, since forms automatically grab the values of all input elements in between the form tags.
 * How to send that data, as forms always send data as an object with keys corresponding to input element name attributes.
 
-We're no longer using forms, so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the HTTP method being used, and set the request body to an object with the key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility.
+We're no longer using forms (Notice the lack of `<form>` tags! Luckily, we can still use `<input>` elements outside of forms), so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the HTTP method being used, and set the request body to an object with the key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility.
 
 ##### 8.2.1.3 Catching Fetch Errors
 

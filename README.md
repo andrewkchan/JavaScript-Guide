@@ -1264,3 +1264,129 @@ This is just a small selection of the most common events. See the [official docu
 
 * [`change`](https://developer.mozilla.org/en-US/docs/Web/Events/change) - Fired for value input events like textboxes whenever the input value changes.
 * [`load`](https://developer.mozilla.org/en-US/docs/Web/Reference/Events/load_(ProgressEvent)) - The element has finished loading.
+
+
+## 8. Communicating with a Backend
+
+Previously, we learned about DOM events and using them to make our website interactive. Now let's make our website into a web application by allowing it to communicate with a server (called the _backend_). There are two ways to do this: the old way using HTML forms and the new way using AJAX (Asynchronous JavaScript).
+
+### 8.1 Review of HTML Forms
+
+For historical context we briefly review forms.
+
+**A bit of history**. Forms used to be the *only* way for a user of a website to communicate with the server. Essentially, they are an HTML-only way to send data to the server. Let's look at an example of a web page that uses forms. Can you guess what the below code does when the user clicks the "submit my info" button?
+
+```html
+<form action="example.com/hello" method="POST">
+    <input type="text" name="my_name" />
+    <button type="submit">submit my info</button>
+</form>
+```
+
+If you guessed that the web browser would send the contents of the form input elements to the server, you guessed right! In particular, the data that gets sent to the server looks like a dictionary with a single key and value:
+```javascript
+{ my_name: "<whatever the user inputted into the single text input element>" }
+```
+
+Notice that the single key - `my_name` - corresponds exactly to the `name` attribute of the html text input element.
+
+Now, some things stand out to us about the behavior of the web page after the user clicks submit:
+* When the user receives the server's response, _the entire web page will reload and interpret the server's response as a new HTML page_! For this reason, when we use `form` elements to send data to the server, the server should always be returning a completely new HTML page, rather than chunks of data, because the web browser has this default behavior of interpreting the response as a new page.
+* There is very little we can do to change how the web page sends data to the server. That is, it will by default send data in this prescribed way of sending a dictionary with keys corresponding to the input element's `name` attributes, and values corresponding to the respective input element's values.
+* The good thing is that we generally don't need to change this behavior, and in the olden days before web applications (when web sites were literally just HTML) this was all people needed. We still teach the `form` way of doing things because of how simple it is.
+
+### 8.2 Asynchronous JavaScript
+
+Sometime in the mid 2000s, web applications became much more complex, and interactions with the server such as posting comments and receiving notifications in real time became much more common; since hundreds of these interactions could occur in the lifetime of a page, reloading the page for every interaction became unnecessary and infeasible. Instead, web pages used raw HTTP requests to request small chunks of data from web APIs and iteratively modify the page instead of reloading the page for every server interaction. This mode of interaction is historically called **AJAX** ("Asynchronous JavaScript").
+
+#### 8.2.1 Making Asynchronous HTTP Requests
+
+The [**Fetch API**](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) is present in every modern browser and provides a simple interface to make asynchronous HTTP requests using JavaScript.
+
+##### 8.2.1.1 GET Fetch Requests
+
+Making GET requests is very easy using the Fetch API; here is an example script that gets the weather from the Weather Underground API:
+
+```javascript
+fetch("https://api.wunderground.com/api/MY_API_KEY/conditions/q/CA/San_Francisco.json")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(json) {
+    console.log(json.current_observation.weather);
+  });
+```
+
+Notice the use of `.then(function)` - this is because the fetch API makes use of [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which are essentially a cleaner way of adding event listener functions for asynchronous events. We do this because receiving a response to our HTTP request is an asynchronous event; we don't know when or if it will even happen, so the best we can do is listen for the event in the background while the rest of our code continues to execute.
+
+Furthermore, fetch requests do not send authentication data such as cookies by default; in order to include cookies with our request, we must set the request property "credentials" in our second argument:
+
+```javascript
+fetch("https://api.wunderground.com/api/MY_API_KEY/conditions/q/CA/San_Francisco.json", {
+  credentials: "include"
+});
+```
+
+##### 8.2.1.2 POST Fetch Requests
+
+Making POST requests requires setting more request properties in our second argument. Here is an example POST request:
+
+```javascript
+var postData = {
+  username: "dirks"
+};
+fetch("example.com/hello", {
+  method: "POST",
+  body: postData,
+  headers: { "content-type": "application/json" },
+}).then(function(response) {
+  return response.json();
+}).then(function(json) {
+  // ...
+  // do whatever we want with the response data
+  // ...
+})
+```
+
+In the interest of replacing clunky forms with fetch requests, here is the same toy example above we made using HTML forms, but using fetch requests instead of forms:
+
+```html
+<input type="text" id="name_input" />
+<button id="submit_btn">submit my info</button>
+
+<script>
+document.getElementById("submit_btn").addEventListener("click", function(e) {
+  var textInput = document.getElementById("name_input").value;
+  fetch("example.com/hello", {
+    method: "POST",
+    body: { my_name: textInput },
+    headers: { "content-type": "application/json" },
+  });
+});
+</script>
+```
+
+Now, the HTML form used to decide everything for us, including:
+* What data to send to the server, since forms automatically grab the values of all input elements in between the form tags.
+* How to send that data, as forms always send data as an object with keys corresponding to input element name attributes.
+
+We're no longer using forms, so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the HTTP method being used, and set the request body to an object with the key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility.
+
+##### 8.2.1.3 Catching Fetch Errors
+
+Occasionally our fetch requests will fail to be fulfilled with a response or will receive an HTTP error, and our response listener will never be called. We can catch these errors easily by simply adding an _error listener_ to the promise:
+
+```javascript
+fetch("https://api.wunderground.com/api/MY_API_KEY/conditions/q/CA/San_Francisco.json")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(json) {
+    console.log(json.current_observation.weather);
+  })
+  .catch(function(error) {
+    console.error("Error:", error);
+  });
+```
+
+Thus using fetch, we can asynchronously do everything that an HTML form can do and more, including send input data and files. [Read the Fetch documentation for more.](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)

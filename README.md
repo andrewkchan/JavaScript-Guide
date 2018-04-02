@@ -1394,6 +1394,18 @@ Now, the HTML form used to decide everything for us, including:
 
 We're no longer using forms (Notice the lack of `<form>` tags! Luckily, we can still use `<input>` elements outside of forms), so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the [HTTP method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) being used, and set the request body to a [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object with a single key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility. And of course, the best part is that our page no longer automatically reloads and can do these requests asynchronously.
 
+###### A Note on POST Data Formatting
+
+The data send in the body of a POST request can be formatted in several ways, as specified by the `content-type` header in the request properties. There are 3 important content types:
+
+* `multipart/form-data`, where the `body` should be a `FormData` object.
+* `application/x-www-form-urlencoded`, where the `body` should be a string of key-value pairs in [url encoded format](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST).
+* `application/json`, where the `body` should be a stringified JavaScript object, e.g. `JSON.stringify({ username: "dirks" })`.
+
+When using HTML forms, the POST request and its data is always automatically formatted according to [`content-type: multipart/form-data` or `content-type: application/x-www-form-urlencoded`](https://stackoverflow.com/questions/4007969/application-x-www-form-urlencoded-or-multipart-form-data); a fetch request sending `FormData` will also automatically be formatted according to `content-type: multipart/form-data`. The latter format supports sending files, and both formats will be interpreted as form submissions by most backend frameworks - in particular, Django can access form fields of these two content formats using `request.POST`.
+
+On the other hand, some backend frameworks do not support parsing the (often complicated) form content types. A typical Express.js setup, for instance, requires additional middleware for form data, but will process `content-type: application/json` just fine. Almost all modern APIs use JSON to communicate, so for this reason `application/json` should be used as a default POST content type.
+
 ##### 8.2.1.3 Catching Fetch Errors
 
 Occasionally our fetch requests will fail to be fulfilled with a response or will receive an HTTP error, and our response listener will never be called. We can catch these errors easily by simply adding an _error listener_ to the promise:

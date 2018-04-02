@@ -1354,13 +1354,11 @@ fetch("https://api.wunderground.com/api/MY_API_KEY/conditions/q/CA/San_Francisco
 Making POST requests requires setting more request properties in our second argument. Here is an example POST request:
 
 ```javascript
-var postData = {
-  username: "dirks"
-};
+var postData = new FormData();
+postData.append("username", "dirks");
 fetch("example.com/hello", {
   method: "POST",
   body: postData,
-  headers: { "content-type": "application/json" },
 }).then(function(response) {
   return response.json();
 }).then(function(json) {
@@ -1372,27 +1370,29 @@ fetch("example.com/hello", {
 
 In the interest of replacing clunky forms with fetch requests, here is the same toy example above we made using HTML forms, but using fetch requests instead of forms:
 
+HTML:
 ```html
 <input type="text" id="name_input" />
 <button id="submit_btn">submit my info</button>
-
-<script>
+```
+JS:
+```javascript
 document.getElementById("submit_btn").addEventListener("click", function(e) {
   var textInput = document.getElementById("name_input").value;
+  var formData = new FormData();
+  formData.append("my_name", textInput);
   fetch("example.com/hello", {
     method: "POST",
-    body: { my_name: textInput },
-    headers: { "content-type": "application/json" },
+    body: formData,
   });
 });
-</script>
 ```
 
 Now, the HTML form used to decide everything for us, including:
 * What data to send to the server, since forms automatically grab the values of all input elements in between the form tags.
 * How to send that data, as forms always send data as an object with keys corresponding to input element name attributes.
 
-We're no longer using forms (Notice the lack of `<form>` tags! Luckily, we can still use `<input>` elements outside of forms), so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the HTTP method being used, and set the request body to an object with the key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility. And of course, the best part is that our page no longer automatically reloads and can do these requests asynchronously.
+We're no longer using forms (Notice the lack of `<form>` tags! Luckily, we can still use `<input>` elements outside of forms), so we have to decide these things ourselves. In particular, we have to explicitly grab the value of the input element ourselves, name the [HTTP method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) being used, and set the request body to a [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object with a single key `"my_name"`. This is a bit of extra work we have to do, but in return, we get far more flexibility. And of course, the best part is that our page no longer automatically reloads and can do these requests asynchronously.
 
 ##### 8.2.1.3 Catching Fetch Errors
 
